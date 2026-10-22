@@ -6,6 +6,8 @@ Uma aplicação web moderna, responsiva e intuitiva para cálculo de médias esc
 ![Tecnologias](https://img.shields.io/badge/Tecnologias-HTML5%20%7C%20CSS3%20%7C%20JavaScript-blue)
 ![Licença](https://img.shields.io/badge/Licen%C3%A7a-MIT-green)
 
+🔗 **Demonstração Online (GitHub Pages):** [https://pkfilipe.github.io/calculadora-medias/](https://pkfilipe.github.io/calculadora-medias/)
+
 ---
 
 ## 🚀 Funcionalidades
