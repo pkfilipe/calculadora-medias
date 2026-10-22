@@ -3,158 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculadora de Médias Pro</title>
+  <title>Calculadora de Médias</title>
   <link rel="stylesheet" href="styles.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="app-container">
-    <!-- Header -->
-    <header class="header">
-      <div class="logo-area">
-        <div class="logo-icon">📊</div>
-        <div>
-          <h1>Calculadora de Médias</h1>
-          <p class="subtitle">Calcule médias simples e ponderadas com feedback imediato</p>
-        </div>
-      </div>
-      <button id="themeToggle" class="theme-toggle" title="Alternar tema claro/escuro">
-        <span class="icon" id="themeIcon">🌙</span>
-      </button>
-    </header>
+  <div class="container">
+    <h1>Calculadora de Médias</h1>
+    <p class="descricao">Insira as três notas para calcular a média final:</p>
 
-    <main class="main-content">
-      <!-- Configurações Rápidas -->
-      <section class="card config-card">
-        <div class="card-header">
-          <h2>⚙️ Configurações</h2>
-        </div>
-        <div class="config-grid">
-          <div class="input-group">
-            <label for="calcMode">Tipo de Média</label>
-            <select id="calcMode">
-              <option value="simples">Aritmética Simples</option>
-              <option value="ponderada">Ponderada (com Pesos)</option>
-            </select>
-          </div>
+    <div class="form-group">
+      <label for="nota1">1ª Nota:</label>
+      <input type="number" id="nota1" min="0" max="10" step="0.1" placeholder="Ex: 7.5">
+    </div>
 
-          <div class="input-group">
-            <label for="passingGrade">Média para Aprovação</label>
-            <input type="number" id="passingGrade" value="7.0" min="0" max="100" step="0.1">
-          </div>
+    <div class="form-group">
+      <label for="nota2">2ª Nota:</label>
+      <input type="number" id="nota2" min="0" max="10" step="0.1" placeholder="Ex: 8.0">
+    </div>
 
-          <div class="input-group">
-            <label for="recoveryGrade">Média Mínima para Recuperação</label>
-            <input type="number" id="recoveryGrade" value="5.0" min="0" max="100" step="0.1">
-          </div>
+    <div class="form-group">
+      <label for="nota3">3ª Nota:</label>
+      <input type="number" id="nota3" min="0" max="10" step="0.1" placeholder="Ex: 6.5">
+    </div>
 
-          <div class="input-group">
-            <label for="maxGrade">Escala Máxima</label>
-            <select id="maxGrade">
-              <option value="10">0 a 10</option>
-              <option value="100">0 a 100</option>
-            </select>
-          </div>
-        </div>
-      </section>
+    <div class="botoes">
+      <button id="btnCalcular">Calcular Média</button>
+      <button id="btnLimpar" class="btn-limpar">Limpar</button>
+    </div>
 
-      <!-- Lista de Notas / Avaliações -->
-      <section class="card grades-card">
-        <div class="card-header between">
-          <h2>📝 Notas e Avaliações</h2>
-          <div class="quick-actions">
-            <button id="btnExample" class="btn btn-secondary btn-sm" title="Preencher com notas de exemplo">Exemplo</button>
-            <button id="btnClear" class="btn btn-secondary btn-sm" title="Limpar todas as notas">Limpar</button>
-          </div>
-        </div>
-
-        <div class="table-header" id="tableHeader">
-          <span class="col-name">Avaliação</span>
-          <span class="col-grade">Nota</span>
-          <span class="col-weight" id="colWeightHeader" style="display: none;">Peso</span>
-          <span class="col-actions">Ação</span>
-        </div>
-
-        <div id="gradesList" class="grades-list">
-          <!-- Linhas de notas geradas dinamicamente via JavaScript -->
-        </div>
-
-        <div class="add-row-container">
-          <button id="btnAddGrade" class="btn btn-outline">
-            <span>+</span> Adicionar Avaliação
-          </button>
-        </div>
-      </section>
-
-      <!-- Painel de Resultados -->
-      <section class="card result-card" id="resultCard">
-        <div class="card-header">
-          <h2>🎯 Resultado Final</h2>
-        </div>
-
-        <div class="result-body">
-          <div class="score-display">
-            <div class="score-circle" id="scoreCircle">
-              <span class="score-number" id="finalAverage">--</span>
-              <span class="score-label">MÉDIA</span>
-            </div>
-            <div class="status-info">
-              <div id="statusBadge" class="status-badge status-pending">Aguardando dados...</div>
-              <p id="statusMessage" class="status-message">Insira as notas acima para calcular o resultado.</p>
-            </div>
-          </div>
-
-          <!-- Barra de Progresso da Média -->
-          <div class="progress-container">
-            <div class="progress-labels">
-              <span>0</span>
-              <span id="targetLabel">Meta: 7.0</span>
-              <span id="maxLabel">10.0</span>
-            </div>
-            <div class="progress-track">
-              <div class="progress-bar" id="progressBar" style="width: 0%;"></div>
-              <div class="target-marker" id="targetMarker" style="left: 70%;"></div>
-            </div>
-          </div>
-
-          <!-- Estatísticas Detalhadas -->
-          <div class="stats-grid">
-            <div class="stat-box">
-              <span class="stat-label">Maior Nota</span>
-              <span class="stat-value" id="statHighest">--</span>
-            </div>
-            <div class="stat-box">
-              <span class="stat-label">Menor Nota</span>
-              <span class="stat-value" id="statLowest">--</span>
-            </div>
-            <div class="stat-box">
-              <span class="stat-label">Total de Avaliações</span>
-              <span class="stat-value" id="statCount">0</span>
-            </div>
-            <div class="stat-box">
-              <span class="stat-label" id="statDiffLabel">Diferença p/ Aprovação</span>
-              <span class="stat-value" id="statDiff">--</span>
-            </div>
-          </div>
-
-          <div class="action-buttons">
-            <button id="btnCopyReport" class="btn btn-secondary">
-              📋 Copiar Resumo
-            </button>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <p>Desenvolvido com carinho • HTML, CSS & JavaScript Puro</p>
-    </footer>
+    <div id="resultado" class="resultado escondido">
+      <p id="textoMedia">Média: <strong id="valorMedia">0.0</strong></p>
+      <p id="situacao" class="situacao"></p>
+    </div>
   </div>
-
-  <!-- Toast Notification -->
-  <div id="toast" class="toast">Mensagem aqui</div>
 
   <script src="script.js"></script>
 </body>
